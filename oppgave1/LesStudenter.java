@@ -7,12 +7,21 @@ import java.io.FileNotFoundException;
 // Velg egnede typer for felt i filen med studentinfo, f.eks. første felt kan være en int, siden den representerer id
 // eller studentnummer. Andre felt, som representerer navn til studenten, kan være en String, for eksempel, osv.
 class Student {
+    int nummer;
+    String navn;
+    String program;
+
+    Student(int nummer, String navn, String program){
+        this.nummer = nummer;
+        this.navn = navn;
+        this.program = program;
+    }
     // Skriv kode her ...
 
     // Metoden erstatter en eksisterende metode toString() 
     @Override
     public String toString() {
-        return "Student{" + .... + "}";
+        return "Student{" + "id = " + nummer  + "navn = " + navn + "program = " + program + "}";
     }
 
 }
@@ -25,14 +34,18 @@ public class LesStudenter {
         try (Scanner leser = new Scanner(new File(args[0]))) {
             // Tips: bruk while-løkke med leser.hasNextLine() for å sekvensielt gå over alle rader i filen med studentinfo
             while (leser.hasNext()) {
+                String [] data = leser.nextLine().split(",");
+                if (data.length == 3){
+                    Student s = new Student(Integer.parseInt(data[0]),data[1],data[2]);
+                    System.out.println(s);
+                }
                 // Tips: bruk leser.nextLine().split(",") for å splitte opp linje (post) i felt (leses inn i en String[])
                 // Tips: sjekk at lengden til post er 3 (du trenger ikke å implementer else) 
                 // Tips: ta inn det første feltet som int (forutsatt at datafeltet i klassen Student er int)
                 // Skriv kode her ...
                 // Tips: alloker Student-objekt for hver linje i filen med studentinfo (fullfør initialisering av objektet Student)
-                Student s = new Student(...);
                 // Tips: Skriv ut dataene med den overskrevede toString() metoden i klassen Student.
-                System.out.println(s);
+
             }
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
